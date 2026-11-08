@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCD Live – Réservation (maquette)</title>
+<meta name="description" content="Maquette de proposition pour le site de réservation OCD Live.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --copper:#B85A22; --copper-dark:#A04C1C; --copper-deep:#7E3A13;
+  --copper-soft:#FFF1E6; --copper-tint:#FFF8F2; --copper-line:#F2D3BC; --peach:#F2B48A;
+  --ink:#1C1A19; --ink-2:#4F4843; --muted:#6B625C; --line:#E5DCD4; --line-2:#EFE8E2;
+  --grey:#EDEAE7; --grey-text:#8A817B; --bg:#FFFFFF; --page:#F4EEE9;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand{font-family:Poppins,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--copper-dark)}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);box-shadow:0 0 40px rgba(28,26,25,.08);display:flex;flex-direction:column}
+.demo{background:var(--copper-soft);color:var(--copper-deep);font-size:12px;font-weight:500;text-align:center;padding:8px 16px}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line-2);position:sticky;top:0;background:var(--bg);z-index:5}
+.brand{display:flex;align-items:baseline;gap:6px;background:none;border:0;padding:0;cursor:pointer}
+.brand b{font-weight:700;font-size:22px;color:var(--copper);letter-spacing:.5px}
+.brand span{font-weight:600;font-size:18px}
+.top small{font-size:13px;color:var(--muted)}
+.screen{display:none;flex:1;flex-direction:column}
+.screen.active{display:flex}
+.pad{padding:0 20px}
+.hero{background:var(--ink);color:#fff;padding:36px 20px 32px;display:flex;flex-direction:column;gap:16px}
+.pill{align-self:flex-start;background:var(--copper);color:#fff;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px}
+.hero h1{margin:0;font-size:30px;line-height:1.2;font-weight:700}
+.hero p{margin:0;font-size:15px;line-height:1.55;color:#E8E1DB}
+.hero .accent{color:var(--peach);font-weight:500;font-size:14px}
+h2{margin:0;font-size:20px;font-weight:600}
+.section{padding:28px 20px 0;display:flex;flex-direction:column;gap:14px}
+.choice{display:flex;gap:14px;align-items:flex-start;padding:18px;border:2px solid var(--line);border-radius:16px;background:#fff;text-align:left;cursor:pointer;width:100%;transition:border-color .15s,background .15s}
+.choice:hover,.choice:focus-visible{border-color:var(--copper);background:var(--copper-tint);outline:none}
+.choice .ico{flex-shrink:0;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--ink)}
+.choice.primary{border-color:var(--copper);background:var(--copper-tint)}
+.choice.primary .ico{background:var(--copper)}
+.choice strong{display:block;font-family:Poppins,sans-serif;font-size:17px;font-weight:600;margin-bottom:4px}
+.choice span.txt{font-size:14px;line-height:1.5;color:var(--ink-2)}
+.steps{display:flex;flex-direction:column;gap:16px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step .n{flex-shrink:0;width:32px;height:32px;border-radius:999px;background:var(--copper-soft);color:var(--copper-dark);font-weight:600;display:flex;align-items:center;justify-content:center}
+.step strong{display:block;font-size:15px}
+.step span{font-size:14px;color:var(--muted)}
+.btn{display:block;width:100%;min-height:52px;border:0;border-radius:12px;background:var(--copper);color:#fff;font-weight:600;font-size:16px;cursor:pointer;text-align:center;padding:14px}
+.btn:hover{background:var(--copper-dark)}
+.btn:disabled{background:#CDBFB4;cursor:not-allowed}
+.note{margin:0;text-align:center;font-size:13px;color:var(--muted)}
+.back{align-self:flex-start;background:none;border:0;padding:6px 0;color:var(--copper-dark);font-weight:500;font-size:14px;cursor:pointer}
+.title-block{padding:20px 20px 0;display:flex;flex-direction:column;gap:6px}
+.title-block h1{margin:0;font-size:24px;font-weight:700}
+.title-block p{margin:0;font-size:14px;color:var(--muted)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--page);padding:6px;border-radius:12px}
+.tabs button{min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--muted);font-weight:600;font-size:14px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.cal{margin:18px 20px 0;padding:16px;border:1px solid var(--line-2);border-radius:16px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-head strong{font-family:Poppins,sans-serif;font-size:17px}
+.legend{display:flex;gap:12px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.grid7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.wd{font-size:12px;color:var(--muted);text-align:center;margin-bottom:6px}
+.day{height:42px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;background:var(--copper-soft);border:1px solid var(--copper-line)}
+.day:hover{border-color:var(--copper)}
+.day[aria-pressed="true"]{background:var(--copper);color:#fff;border-color:var(--copper)}
+.day:disabled{background:var(--grey);color:var(--grey-text);border-color:var(--grey);text-decoration:line-through;cursor:not-allowed}
+.slots{display:flex;flex-direction:column;gap:10px}
+.slot{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 16px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:15px;cursor:pointer}
+.slot b{font-weight:600}
+.slot small{font-size:13px}
+.slot:hover{border-color:var(--copper)}
+.slot[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.slot:disabled{background:#F6F4F2;color:var(--grey-text);border-color:var(--grey);cursor:not-allowed}
+.recap-soft{background:var(--copper-tint);border:1px solid var(--copper-line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.label-up{font-size:12px;font-weight:600;color:var(--copper-dark);text-transform:uppercase;letter-spacing:.5px}
+.packs{display:flex;flex-direction:column;gap:12px}
+.pack{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;padding:16px;border-radius:14px;cursor:pointer;background:#fff;border:2px solid var(--line);text-align:left}
+.pack:hover{border-color:var(--copper-line)}
+.pack[aria-pressed="true"]{background:var(--copper-tint);border-color:var(--copper)}
+.pack .row{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%}
+.pack .name{font-family:Poppins,sans-serif;font-size:16px;font-weight:600}
+.pack .tag{background:var(--ink);color:#fff;font-size:11px;font-weight:600;padding:4px 8px;border-radius:999px}
+.pack .desc{font-size:14px;line-height:1.45;color:var(--ink-2)}
+.pack .price{font-size:15px;font-weight:700;color:var(--copper-dark)}
+form{display:flex;flex-direction:column;gap:14px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+input,select,textarea{min-height:46px;padding:0 14px;border:1px solid #D8CEC6;border-radius:10px;font-size:15px;background:#fff}
+textarea{padding:12px 14px;resize:vertical;min-height:90px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--copper);outline-offset:1px;border-color:var(--copper)}
+.recap-dark{background:var(--ink);color:#fff;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.recap-dark .label-up{color:var(--peach)}
+.recap-dark .total{display:flex;justify-content:space-between;border-top:1px solid #3A3532;padding-top:8px;margin-top:4px}
+.ok{background:#EAF6EE;color:#1F5A33;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.5}
+.notif{border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:#FAF7F4}
+.notif .ico{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--copper);display:flex;align-items:center;justify-content:center}
+.notif div{display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.45}
+.notif .muted{color:var(--muted)}
+.foot{padding:28px 20px 32px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="demo">Maquette de proposition · non officielle</div>
+  <header class="top">
+    <button class="brand" type="button" data-go="home" aria-label="Retour à l'accueil"><b>OCD</b><span>Live</span></button>
+    <small id="stepLabel">Lomé · Togo</small>
+  </header>
+
+  <!-- ÉCRAN 1 : ACCUEIL -->
+  <main class="screen active" id="home">
+    <section class="hero">
+      <span class="pill">Lancement le 1er décembre</span>
+      <h1>Fais connaître ton business en live sur TikTok</h1>
+      <p>Viens présenter ou vendre ton produit pendant 1h30, en direct, avec une équipe qui gère ton live. Au studio à Lomé ou depuis chez toi.</p>
+      <p class="accent">Ton produit, ton numéro, ton adresse : vus par toute la communauté.</p>
+    </section>
+
+    <section class="section">
+      <h2>Choisis ton type de live</h2>
+      <button class="choice primary" type="button" data-mode="presentiel">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+        <span><strong>Live en présentiel</strong><span class="txt">Tu viens au studio OCD Live à Lomé. Une régie dirige ton live, tu n'as qu'à présenter.</span></span>
+      </button>
+      <button class="choice" type="button" data-mode="distance">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg></span>
+        <span><strong>Live à distance</strong><span class="txt">Depuis ta boutique ou ta maison, partout en Afrique et dans le monde. Une assistante au studio t'accompagne pendant tout le live.</span></span>
+      </button>
+    </section>
+
+    <section class="section foot">
+      <h2>Comment ça marche</h2>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div><strong>Choisis ta date et ton heure</strong><span>Des créneaux d'1h30, tous les jours de décembre.</span></div></div>
+        <div class="step"><span class="n">2</span><div><strong>Choisis ton forfait</strong><span>Du live découverte au pack du mois.</span></div></div>
+        <div class="step"><span class="n">3</span><div><strong>Fais ton live et vends</strong><span>Ton live passe sur le compte TikTok d'OCD Live.</span></div></div>
+      </div>
+      <button class="btn" type="button" data-mode="presentiel">Réserver mon live</button>
+      <p class="note">Lives d'1h30 · à partir de 15 000 FCFA</p>
+    </section>
+  </main>
+
+  <!-- ÉCRAN 2 : DATE ET CRÉNEAU -->
+  <main class="screen" id="date">
+    <div class="title-block">
+      <button class="back" type="button" data-go="home">← Retour</button>
+      <h1>Choisis ta date</h1>
+      <p>Lives d'1h30 · décembre 2026</p>
+    </div>
+    <div class="pad" style="padding-top:18px">
+      <div class="tabs" role="group" aria-label="Type de live">
+        <button type="button" data-tab="presentiel" aria-pressed="true">Présentiel · Lomé</button>
+        <button type="button" data-tab="distance" aria-pressed="false">À distance</button>
+      </div>
+    </div>
+    <div class="cal">
+      <div class="cal-head">
+        <strong>Décembre 2026</strong>
+        <span class="legend"><span><i style="background:var(--copper-soft);border:1px solid var(--copper)"></i>Libre</span><span><i style="background:var(--grey)"></i>Complet</span></span>
+      </div>
+      <div class="grid7"><span class="wd">L</span><span class="wd">M</span><span class="wd">M</span><span class="wd">J</span><span class="wd">V</span><span class="wd">S</span><span class="wd">D</span></div>
+      <div class="grid7" id="days"></div>
+    </div>
+    <section class="section">
+      <h2 id="slotsTitle" style="font-size:18px">Créneaux</h2>
+      <div class="slots" id="slots"></div>
+    </section>
+    <section class="section foot">
+      <div class="recap-soft"><span class="label-up">Ton choix</span><span id="recapDate" style="font-size:15px;font-weight:500"></span></div>
+      <button class="btn" type="button" id="toPacks">Continuer vers les forfaits</button>
+    </section>
+  </main>
+
+  <!-- ÉCRAN 3 : FORFAITS ET INSCRIPTION -->
+  <main class="screen" id="packs">
+    <div class="title-block">
+      <button class="back" type="button" data-go="date">← Changer la date</button>
+      <h1>Choisis ton forfait</h1>
+      <p>Prix indicatifs, à définir avec l'équipe OCD Live.</p>
+    </div>
+    <section class="section"><div class="packs" id="packList"></div></section>
+
+    <section class="section">
+      <h2>Tes informations</h2>
+      <form id="form" novalidate>
+        <label>Nom complet<input id="fName" type="text" placeholder="Ex. Awa Mensah" autocomplete="name"></label>
+        <label>Numéro WhatsApp<input id="fPhone" type="tel" placeholder="+228 90 00 00 00" autocomplete="tel"></label>
+        <label>Pays et ville<input id="fCity" type="text" placeholder="Ex. Cameroun, Douala"></label>
+        <label>Type de business
+          <select id="fBiz"><option>Mode et tissus</option><option>Alimentation</option><option>Beauté et cosmétiques</option><option>Électronique</option><option>Services</option><option>Autre</option></select>
+        </label>
+        <label>Produit à présenter<textarea id="fProduct" rows="3" placeholder="Décris ton produit en quelques mots"></textarea></label>
+        <label>Adresse à afficher pendant le live (facultatif)<input type="text" placeholder="Boutique, quartier, repère"></label>
+      </form>
+    </section>
+
+    <section class="section">
+      <div class="recap-dark">
+        <span class="label-up">Récapitulatif</span>
+        <span id="r1"></span>
+        <span id="r2"></span>
+        <span class="total"><span id="rPack"></span><strong id="rPrice"></strong></span>
+      </div>
+      <button class="btn" type="button" id="pay">Réserver et payer par Mobile Money</button>
+      <div class="ok" id="ok" role="status" hidden><strong>Réservation envoyée.</strong> Tu vas recevoir la confirmation sur WhatsApp. (Démonstration : aucun paiement réel.)</div>
+    </section>
+
+    <section class="section foot">
+      <h2 style="font-size:16px;color:var(--ink-2)">Ce que reçoit l'équipe OCD Live</h2>
+      <div class="notif">
+        <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+        <div>
+          <strong>Nouvelle réservation</strong>
+          <span id="nWho"></span>
+          <span id="nWhen"></span>
+          <span class="muted" id="nPack"></span>
+        </div>
+      </div>
+      <p class="note" style="text-align:left">Envoyé par e-mail et en notification à chaque réservation, avec toutes les infos du vendeur.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  var WEEKDAYS=['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
+  var FULL_DAYS=[7,14,25];
+  var SLOTS=['9h00 – 10h30','11h00 – 12h30','14h00 – 15h30','16h00 – 17h30','18h00 – 19h30'];
+  var PACKS=[
+    {name:'Live Découverte',desc:'1 live de 1h30 pour tester et te faire connaître.',price:'15 000 FCFA'},
+    {name:'Live Visibilité',desc:'1 live + ton numéro et ton adresse affichés à l’écran pendant tout le live.',price:'[PRIX] FCFA'},
+    {name:'Pack 4 lives',desc:'4 lives à placer quand tu veux, moins cher par live.',price:'[PRIX] FCFA',popular:true},
+    {name:'Pack Promo',desc:'4 lives + une courte vidéo de présentation de ton produit.',price:'[PRIX] FCFA'},
+    {name:'Pack Star',desc:'Ton live est annoncé sur le compte de Bovann avant ton passage.',price:'[PRIX] FCFA'},
+    {name:'Pack du mois',desc:'Présence régulière tout le mois et mise en avant prioritaire.',price:'[PRIX] FCFA'}
+  ];
+  var state={mode:'presentiel',day:1,slot:1,pack:2};
+
+  function $(id){return document.getElementById(id)}
+  function dayName(d){return WEEKDAYS[d%7]+' '+(d===1?'1er':d)+' décembre'} // 1er déc. 2026 = mardi
+  function slotFull(day,i){return (day+i)%4===0}
+  function modeLabel(){return state.mode==='presentiel'?'Présentiel à Lomé':'À distance'}
+  function slotText(){return state.slot===null?'choisis un créneau':SLOTS[state.slot]}
+
+  function show(id){
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('active',s.id===id)});
+    $('stepLabel').textContent=id==='home'?'Lomé · Togo':(id==='date'?'Étape 1 sur 2':'Étape 2 sur 2');
+    if(id==='packs')renderPacks();
+    window.scrollTo(0,0);
+  }
+
+  function renderDays(){
+    var el=$('days');el.innerHTML='';
+    var blank=document.createElement('span');el.appendChild(blank); // le mois commence un mardi
+    for(var d=1;d<=31;d++){(function(n){
+      var b=document.createElement('button');b.type='button';b.className='day';b.textContent=n;
+      var full=FULL_DAYS.indexOf(n)!==-1;
+      b.disabled=full;b.setAttribute('aria-pressed',String(state.day===n));
+      b.setAttribute('aria-label',n+' décembre'+(full?', complet':''));
+      b.onclick=function(){state.day=n;state.slot=null;renderDate()};
+      el.appendChild(b);
+    })(d)}
+  }
+  function renderSlots(){
+    var el=$('slots');el.innerHTML='';
+    $('slotsTitle').textContent='Créneaux du '+dayName(state.day);
+    SLOTS.forEach(function(label,i){
+      var full=slotFull(state.day,i),sel=state.slot===i;
+      var b=document.createElement('button');b.type='button';b.className='slot';
+      b.disabled=full;b.setAttribute('aria-pressed',String(sel));
+      b.innerHTML='<b>'+label+'</b><small>'+(full?'Complet':(sel?'Sélectionné':'Disponible'))+'</small>';
+      b.onclick=function(){state.slot=i;renderDate()};
+      el.appendChild(b);
+    });
+  }
+  function renderDate(){
+    document.querySelectorAll('[data-tab]').forEach(function(t){t.setAttribute('aria-pressed',String(t.dataset.tab===state.mode))});
+    renderDays();renderSlots();
+    $('recapDate').textContent=modeLabel()+' · '+dayName(state.day)+' · '+slotText();
+    $('toPacks').disabled=state.slot===null;
+  }
+  function renderPacks(){
+    var el=$('packList');el.innerHTML='';
+    PACKS.forEach(function(p,i){
+      var b=document.createElement('button');b.type='button';b.className='pack';
+      b.setAttribute('aria-pressed',String(state.pack===i));
+      b.innerHTML='<span class="row"><span class="name">'+p.name+'</span>'+(p.popular?'<span class="tag">Populaire</span>':'')+'</span><span class="desc">'+p.desc+'</span><span class="price">'+p.price+'</span>';
+      b.onclick=function(){state.pack=i;$('ok').hidden=true;renderPacks()};
+      el.appendChild(b);
+    });
+    var p=PACKS[state.pack];
+    $('r1').textContent=modeLabel()+' · '+dayName(state.day);
+    $('r2').textContent=slotText();
+    $('rPack').textContent=p.name;$('rPrice').textContent=p.price;
+    renderNotif();
+  }
+  function renderNotif(){
+    var name=$('fName').value.trim()||'Awa M.';
+    var city=$('fCity').value.trim()||'Douala, Cameroun';
+    $('nWho').textContent=name+' · '+$('fBiz').value+' · '+city;
+    var when=dayName(state.day);when=when.charAt(0).toUpperCase()+when.slice(1);
+    $('nWhen').textContent=when+' · '+slotText()+' · '+modeLabel();
+    $('nPack').textContent=PACKS[state.pack].name+' · payé par Mobile Money';
+  }
+
+  document.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){show(b.dataset.go)}});
+  document.querySelectorAll('[data-mode]').forEach(function(b){b.onclick=function(){state.mode=b.dataset.mode;renderDate();show('date')}});
+  document.querySelectorAll('[data-tab]').forEach(function(b){b.onclick=function(){state.mode=b.dataset.tab;renderDate()}});
+  $('toPacks').onclick=function(){show('packs')};
+  ['fName','fCity','fBiz'].forEach(function(id){$(id).addEventListener('input',renderNotif)});
+  $('pay').onclick=function(){$('ok').hidden=false;$('ok').scrollIntoView({behavior:'smooth',block:'center'})};
+
+  renderDate();
+})();
+</script>
+</body>
+</html>
